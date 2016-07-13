@@ -8,10 +8,20 @@ app.use(express.static('public'));
 var server = http.Server(app);
 var io = socket_io(server);
 
-io.on('draw', function(socket) {
-    console.log('registered');
-    // socket.on('draw', position);
-    
+io.on('connection', function(socket) {
+    socket.on('draw', function(position) {
+        socket.broadcast.emit('drawEvent', position);
+    });
+
+    socket.on('guess', function(userGuess) {
+        console.log(userGuess);
+        io.emit('guessAppend', userGuess);
+    });
+
 });
+// create a new socket.
+// io.on('guessBox', function(socket) {
+
+// });
 
 server.listen(8080);
