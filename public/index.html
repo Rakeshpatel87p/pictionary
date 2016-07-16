@@ -33,6 +33,10 @@ canvas {
     display: block;
     margin: 0 auto;
 }
+
+#drawerInstructions {
+    display:none;
+}
 </style>
 <!-- JS -->
 <script src="//code.jquery.com/jquery-2.1.0.js"></script>
@@ -45,6 +49,10 @@ canvas {
         <div id="guess">
             Make a guess:
             <input type="text">
+        </div>
+        <hr>
+        <div id="drawerInstructions">You are the drawer. Draw the following:        <br />
+            <span id="drawerWord"></span>
         </div>
         <div id="guesses"></div>
     </div>
