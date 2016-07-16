@@ -1,5 +1,5 @@
 var socket = io();
-var drawing = false;
+// var drawing = false;
 
 var pictionary = function() {
     var canvas, context;
@@ -41,12 +41,12 @@ var pictionary = function() {
     canvas[0].width = canvas[0].offsetWidth;
     canvas[0].height = canvas[0].offsetHeight;
     canvas.mousedown(function() {
-        drawing = true;
+        // drawing = true;
 
     });
 
     canvas.on('mouseup', function(event) {
-        drawing = false;
+        // drawing = false;
     });
 
     socket.on('drawEvent', function(user) {
@@ -63,27 +63,29 @@ var pictionary = function() {
                 y: event.pageY - offset.top
             };
 
-            // Necessary to have this socket here?
-            socket.emit('connection');
-            // on top of sending position, send user identity
-            
-            socket.on('user', function(users) {
-                console.log('users', users);
-                for (var i=0; i < users.length; i++) {
-                    var user = users[i];
-                    console.log((user.canDraw && user.socket_id == socket.id), "CONDITION");
-                    console.log("Can draw?", user.canDraw);
-                    console.log('id on obj', user.socket_id);
-                    console.log("SOCKET ID", socket.id)
-                    if (user.canDraw && user.socket_id == socket.id) {
-                        socket.emit('draw', position);
-                        draw(position);
-                        return;
-                    }
-                }
-                // console.log('user in client', user);
+        // };
 
-            })
+        // Necessary to have this socket here?
+        socket.emit('connection');
+        // on top of sending position, send user identity
+
+        socket.on('user', function(users) {
+            console.log('users', users);
+            for (var i = 0; i < users.length; i++) {
+                var user = users[i];
+                console.log((user.canDraw && user.socket_id == socket.id), "CONDITION");
+                console.log("Can draw?", user.canDraw);
+                console.log('id on obj', user.socket_id);
+                console.log("SOCKET ID", socket.id)
+                if (user.canDraw && user.socket_id == socket.id) {
+                    socket.emit('draw', position);
+                    draw(position);
+                    return;
+                }
+            }
+            // console.log('user in client', user);
+
+        })
 
         // };
 
